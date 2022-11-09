@@ -3,12 +3,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTintMode="src_over"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".OTP_Verification">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/backToLogin"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/M_16dp"
+        android:layout_marginTop="@dimen/M_16dp"
+        android:fontFamily="@font/dm_bold"
+        android:gravity="center"
+        android:text="OTP Verification"
+        android:textAllCaps="false"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="@dimen/TS_24sp"
+        app:icon="@drawable/back_ic"
+        app:iconGravity="start"
+        app:iconSize="@dimen/SIZE_30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_bold"
+        android:textColor="@color/color2"
+        android:text="We have sent a verification code to"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.199" />
+
+    <TextView
+        android:id="@+id/mobileNumberDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/M_8dp"
+        android:fontFamily="@font/dm_bold"
+        android:textColor="@color/color2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/OTPField"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/H_50dp"
+        android:ems="9"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:letterSpacing="1"
+        android:maxLength="6"
+        android:textColor="@color/color4"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintBottom_toTopOf="@+id/verifyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobileNumberDisplay"
+        app:layout_constraintVertical_bias="0.481"
+        tools:ignore="LabelFor" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/verifyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/H_50dp"
+        android:layout_marginBottom="@dimen/M_372dp"
+        android:text="verify"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loadingForUserData"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verifyButton"
+        app:layout_constraintVertical_bias="0.169" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

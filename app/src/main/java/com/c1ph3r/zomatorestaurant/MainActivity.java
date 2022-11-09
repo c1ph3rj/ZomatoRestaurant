@@ -2,8 +2,12 @@ package com.c1ph3r.zomatorestaurant;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +21,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,14 +45,41 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         MAIN.LoginUser.setOnClickListener(onClickLogin -> {
-            PhoneAuthOptions sendOTPAuth = PhoneAuthOptions.newBuilder()
-                    .setPhoneNumber("+91 "+ MAIN.MobileNumber.getText())
-                    .setTimeout(60L, TimeUnit.SECONDS)
-                    .setActivity(MainActivity.this)
-                    .setCallbacks(responseCallBacks).build();
-            PhoneAuthProvider.verifyPhoneNumber(sendOTPAuth);
+            if(MAIN.MobileNumber.getText().toString().matches("^[6-9][0-9]{9}$")) {
+                toSendOTP();
+                startCountDown();
+            }else
+                Toast.makeText(this, "Enter a valid Mobile Number!", Toast.LENGTH_LONG).show();
         });
 
+
+
+    }
+
+    private CountDownTimer startCountDown() {
+        return new CountDownTimer(60000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                MAIN.TimeoutTimer.setText( "Wait Until: " + millisUntilFinished / 1000);
+
+            }
+
+            public void onFinish() {
+                MAIN.LoginUser.setClickable(true);
+                MAIN.TimeoutTimer.setText(" ");
+            }
+        }.start();
+    }
+
+    private void toSendOTP() {
+        MAIN.LoginUser.setClickable(false);
+        PhoneAuthOptions sendOTPAuth = PhoneAuthOptions.newBuilder()
+                .setPhoneNumber("+91 "+ MAIN.MobileNumber.getText())
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(MainActivity.this)
+                .setCallbacks(responseCallBacks).build();
+        PhoneAuthProvider.verifyPhoneNumber(sendOTPAuth);
     }
 
     private final PhoneAuthProvider.OnVerificationStateChangedCallbacks responseCallBacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -69,9 +101,27 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("DONE SMS SENT");
             verifyOTP(verificationID);
         }
+
+        @Override
+        public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
+            super.onCodeAutoRetrievalTimeOut(s);
+        }
     };
 
     private void verifyOTP(String verificationID) {
+        try {
+            Fragment fragment = new OTP_Verification(Objects.requireNonNull(MAIN.MobileNumber.getText()).toString(), auth, verificationID);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.LoginScreen, fragment).addToBackStack("BackPressed");
+            fragmentTransaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStackImmediate();
     }
 }
