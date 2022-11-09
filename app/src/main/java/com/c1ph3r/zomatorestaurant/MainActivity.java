@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        MAIN.Login.setOnClickListener(onClickLogin -> {
+        MAIN.LoginUser.setOnClickListener(onClickLogin -> {
             PhoneAuthOptions sendOTPAuth = PhoneAuthOptions.newBuilder()
                     .setPhoneNumber("+91 "+ MAIN.MobileNumber.getText())
                     .setTimeout(60L, TimeUnit.SECONDS)

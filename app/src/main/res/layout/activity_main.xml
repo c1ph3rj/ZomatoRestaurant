@@ -10,27 +10,91 @@
 
     <EditText
         android:id="@+id/MobileNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_background"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:padding="6dp"
+        android:textColor="@color/color1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.302" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/Login"
-        style="@style/Widget.Material3.Button.TonalButton"
+        android:id="@+id/LoginUser"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:text="Send OTP"
+        android:textAllCaps="false"
+        app:cornerRadius="6dp"
+        android:elevation="@dimen/E_8dp"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterRestaurants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MobileNumber"
+        app:layout_constraintVertical_bias="0.042" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/RegisterRestaurants"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        app:cornerRadius="6dp"
+        android:layout_marginBottom="44dp"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:text="Register your restaurant"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/metropolis_extra_bold_italic"
+        android:text="Zomato"
+        android:textColor="@color/color1"
+        android:textSize="@dimen/TS_40sp"
+        app:layout_constraintBottom_toTopOf="@+id/MobileNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/metropolis_regular"
+        android:text="-- restaurant partner --"
+        android:textColor="@color/color2"
+        app:layout_constraintBottom_toTopOf="@+id/MobileNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your Registered Mobile Number \nand we will send an OTP to continue"
+        app:layout_constraintBottom_toTopOf="@+id/MobileNumber"
+        android:textColor="@color/color1"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.46" />
 </androidx.constraintlayout.widget.ConstraintLayout>
