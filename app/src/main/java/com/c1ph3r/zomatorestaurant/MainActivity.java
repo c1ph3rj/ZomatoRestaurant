@@ -3,6 +3,7 @@ package com.c1ph3r.zomatorestaurant;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
         View view = MAIN.getRoot();
         setContentView(view);
 
+
         FirebaseApp.initializeApp(this);
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
         firebaseAppCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance());
 
         auth = FirebaseAuth.getInstance();
 
-        MAIN.LoginUser.setOnClickListener(onClickLogin -> {
+        MAIN.loginUser.setOnClickListener(onClickLogin -> {
             if(MAIN.MobileNumber.getText().toString().matches("^[6-9][0-9]{9}$")) {
                 toSendOTP();
                 startCountDown();
@@ -66,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                MAIN.LoginUser.setClickable(true);
+                MAIN.loginUser.setClickable(true);
                 MAIN.TimeoutTimer.setText(" ");
             }
         }.start();
     }
 
     private void toSendOTP() {
-        MAIN.LoginUser.setClickable(false);
+        MAIN.loginUser.setClickable(false);
         PhoneAuthOptions sendOTPAuth = PhoneAuthOptions.newBuilder()
                 .setPhoneNumber("+91 "+ MAIN.MobileNumber.getText())
                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
+            e.printStackTrace();
             System.out.println("Failed");
         }
 
@@ -110,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void verifyOTP(String verificationID) {
         try {
-            Fragment fragment = new OTP_Verification(Objects.requireNonNull(MAIN.MobileNumber.getText()).toString(), auth, verificationID);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.LoginScreen, fragment).addToBackStack("BackPressed");
+            OTPVerify fragment = new OTPVerify(Objects.requireNonNull(MAIN.MobileNumber.getText()).toString(), auth, verificationID);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.LoginScreen, fragment).addToBackStack("BackPressed");
             fragmentTransaction.commit();
+            MAIN.loginUser.setVisibility(View.INVISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        MAIN.loginUser.setVisibility(View.VISIBLE);
         if (getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStackImmediate();
     }

@@ -66,6 +66,7 @@
     <dimen name="H_200dp">200dp</dimen>
     <dimen name="H_100dp">100dp</dimen>
     <dimen name="H_140dp">140dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>
