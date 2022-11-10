@@ -9,7 +9,8 @@ public enum TypeOfCuisines {
     FAST_FOOD(5),
     AMERICAN(6),
     CONTINENTAL(7),
-    ARABIAN(8);
+    BEVEARGE(8),
+    ARABIAN(9);
 
     private final int FilterLevel;
 
