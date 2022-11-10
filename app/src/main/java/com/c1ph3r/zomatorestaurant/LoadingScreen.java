@@ -17,6 +17,6 @@ public class LoadingScreen extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser() == null)
             startActivity(new Intent(LoadingScreen.this, MainActivity.class));
         else
-            startActivity(new Intent(LoadingScreen.this, Dashboard.class));
+            startActivity(new Intent(LoadingScreen.this, RegisterRestaurant.class));
     }
 }

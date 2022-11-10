@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".RegisterRestaurant">
+
+    <LinearLayout
+        android:layout_width="@dimen/W_340dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/OwnerNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/M_10dp"
+            android:textColorHint="@color/color2"
+            app:boxCornerRadiusBottomEnd="@dimen/R_12dp"
+            app:boxCornerRadiusBottomStart="@dimen/R_12dp"
+            app:boxCornerRadiusTopEnd="@dimen/R_12dp"
+            app:boxCornerRadiusTopStart="@dimen/R_12dp"
+            app:boxStrokeColor="@color/color2"
+            app:boxStrokeWidth="@dimen/W_2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/color2"
+            app:hintTextColor="@color/color2"
+            app:startIconTint="@color/color2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/OwnerName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/H_50dp"
+                android:fontFamily="@font/metropolis_regular"
+                android:hint="OwnerName"
+                android:maxLength="28"
+                android:singleLine="true"
+                android:textColor="@color/color2"
+                android:textSize="@dimen/TS_14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/RestaurantNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/M_10dp"
+            android:textColorHint="@color/color2"
+            app:boxCornerRadiusBottomEnd="@dimen/R_12dp"
+            app:boxCornerRadiusBottomStart="@dimen/R_12dp"
+            app:boxCornerRadiusTopEnd="@dimen/R_12dp"
+            app:boxCornerRadiusTopStart="@dimen/R_12dp"
+            app:boxStrokeColor="@color/color2"
+            app:boxStrokeWidth="@dimen/W_2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/color2"
+            app:hintTextColor="@color/color2"
+            app:startIconTint="@color/color2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/RestaurantName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/H_50dp"
+                android:fontFamily="@font/metropolis_regular"
+                android:hint="Restaurant Name"
+                android:maxLength="28"
+                android:singleLine="true"
+                android:textColor="@color/color2"
+                android:textSize="@dimen/TS_14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/GSTNoLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/M_10dp"
+            android:textColorHint="@color/color2"
+            app:boxCornerRadiusBottomEnd="@dimen/R_12dp"
+            app:boxCornerRadiusBottomStart="@dimen/R_12dp"
+            app:boxCornerRadiusTopEnd="@dimen/R_12dp"
+            app:boxCornerRadiusTopStart="@dimen/R_12dp"
+            app:boxStrokeColor="@color/color2"
+            app:boxStrokeWidth="@dimen/W_2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/color2"
+            app:hintTextColor="@color/color2"
+            app:startIconTint="@color/color2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/GSTNo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/H_55dp"
+                android:fontFamily="@font/metropolis_regular"
+                android:hint="GST Number(Optional)"
+                android:inputType="textEmailAddress"
+                android:maxLength="28"
+                android:textColor="@color/color2"
+                android:textSize="@dimen/TS_14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FSSAILayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/M_10dp"
+            android:textColorHint="@color/color2"
+            app:boxCornerRadiusBottomEnd="@dimen/R_12dp"
+            app:boxCornerRadiusBottomStart="@dimen/R_12dp"
+            app:boxCornerRadiusTopEnd="@dimen/R_12dp"
+            app:boxCornerRadiusTopStart="@dimen/R_12dp"
+            app:boxStrokeColor="@color/color2"
+            app:boxStrokeWidth="@dimen/W_2dp"
+            app:counterTextColor="@color/color2"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/color2"
+            app:hintTextColor="@color/color2"
+            app:startIconTint="@color/color2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/FSSAINumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/H_55dp"
+                android:fontFamily="@font/metropolis_regular"
+                android:hint="FSSAI License number"
+                android:inputType="textPassword"
+                android:textColor="@color/color2"
+                android:textSize="@dimen/TS_14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PanCardLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/M_10dp"
+            android:textColorHint="@color/color2"
+            app:boxCornerRadiusBottomEnd="@dimen/R_12dp"
+            app:boxCornerRadiusBottomStart="@dimen/R_12dp"
+            app:boxCornerRadiusTopEnd="@dimen/R_12dp"
+            app:boxCornerRadiusTopStart="@dimen/R_12dp"
+            app:boxStrokeColor="@color/color2"
+            app:boxStrokeWidth="@dimen/W_2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/color2"
+            app:hintTextColor="@color/color2"
+            app:startIconTint="@color/color2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PanCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/H_55dp"
+                android:fontFamily="@font/metropolis_regular"
+                android:hint="Pan Card Number"
+                android:inputType="textPassword"
+                android:textColor="@color/color2"
+                android:textSize="@dimen/TS_14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ContactNumberLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/M_10dp"
+            android:textColorHint="@color/color2"
+            app:boxCornerRadiusBottomEnd="@dimen/R_12dp"
+            app:boxCornerRadiusBottomStart="@dimen/R_12dp"
+            app:boxCornerRadiusTopEnd="@dimen/R_12dp"
+            app:boxCornerRadiusTopStart="@dimen/R_12dp"
+            app:boxStrokeColor="@color/color2"
+            app:boxStrokeWidth="@dimen/W_2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/color2"
+            app:hintTextColor="@color/color2"
+            app:startIconTint="@color/color2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ContactNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/H_55dp"
+                android:fontFamily="@font/metropolis_regular"
+                android:hint="Contact Number"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:textColor="@color/color2"
+                android:textSize="@dimen/TS_14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Submit"
+            android:layout_width="@dimen/W_300dp"
+            android:layout_height="@dimen/H_60dp"
+            android:layout_margin="@dimen/M_10dp"
+            android:elevation="@dimen/E_4dp"
+            android:fontFamily="@font/metropolis_bold"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:textSize="@dimen/TS_14sp"
+            app:cornerRadius="@dimen/R_12dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
