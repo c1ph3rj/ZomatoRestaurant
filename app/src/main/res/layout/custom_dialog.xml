@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/W_300dp"
+        android:layout_height="@dimen/H_220dp"
+        android:padding="@dimen/P_8dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/TITLE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/metropolis_bold"
+            android:text="Title"
+            android:textColor="@color/color1"
+            android:textSize="@dimen/TS_18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.057" />
+
+        <TextView
+            android:id="@+id/MESSAGE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/M_8dp"
+            android:fontFamily="@font/metropolis_semi_bold"
+            android:text="Message"
+            android:textAlignment="center"
+            android:textColor="@color/color1"
+            android:textSize="@dimen/TS_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TITLE"
+            app:layout_constraintVertical_bias="0.13" />
+
+        <Button
+            android:id="@+id/Ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/M_10dp"
+            android:elevation="@dimen/E_2dp"
+            android:fontFamily="@font/metropolis_semi_bold"
+            android:text="Ok"
+            android:textAllCaps="false"
+            android:textColor="@color/color4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.924"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MESSAGE"
+            app:layout_constraintVertical_bias="0.922" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
