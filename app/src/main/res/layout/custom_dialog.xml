@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/M_8dp"
+            android:lineSpacingMultiplier="1.2"
             android:fontFamily="@font/metropolis_semi_bold"
             android:text="Message"
             android:textAlignment="center"

@@ -21,7 +21,7 @@ import com.google.android.material.button.MaterialButton;
 public class RegistrationPage2 extends Fragment {
     ImageView previewDocument;
     ActivityResultLauncher<Intent> openGallery;
-
+    public Uri imageUri;
     public RegistrationPage2() {
         // Required empty public constructor
     }
@@ -60,7 +60,7 @@ public class RegistrationPage2 extends Fragment {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent data = result.getData();
                         assert data != null;
-                        Uri imageUri = data.getData();
+                        imageUri = data.getData();
                         previewDocument.setImageURI(imageUri);
                     }
                 });
