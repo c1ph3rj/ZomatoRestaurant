@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.c1ph3r.zomatorestaurant.Adapter.RegistrationProcess;
+import com.c1ph3r.zomatorestaurant.Controller.AuthController;
 import com.c1ph3r.zomatorestaurant.Model.RestaurantUserDetails;
 import com.c1ph3r.zomatorestaurant.databinding.ActivityRegisterRestaurantBinding;
 import com.c1ph3r.zomatorestaurant.databinding.FragmentRegisterPage1Binding;
@@ -31,6 +32,7 @@ public class RegisterRestaurant extends AppCompatActivity {
     private FragmentRegisterPage1Binding PAGE1;
     FragmentRegistrationPage2Binding PAGE2;
     RegisterPage1 restaurantDetails;
+    RestaurantUserDetails userDetails;
     RegistrationPage2 documentDetails;
     View view ;
 
@@ -45,7 +47,6 @@ public class RegisterRestaurant extends AppCompatActivity {
         restaurantDetails = new RegisterPage1();
         documentDetails = new RegistrationPage2();
 
-        view = restaurantDetails.getView();
 
         // Initializing and Declaring the Adapter.
         RegistrationProcess process = new RegistrationProcess(RegisterRestaurant.this);
@@ -71,9 +72,9 @@ public class RegisterRestaurant extends AppCompatActivity {
                     // If view pager in 2nd fragment verify if the user uploaded the document and if yes move to next fragments
                     if (CheckDocumentValues())
                         submitValues();
-                    else
+                    //else
                         // Else toast a message to the user.
-                        alertTheUser(getString(R.string.ImageError_Text), getString(R.string.DocumentErrorMessage));
+                        //alertTheUser(getString(R.string.ImageError_Text), getString(R.string.DocumentErrorMessage));
             }
         });
 
@@ -87,20 +88,11 @@ public class RegisterRestaurant extends AppCompatActivity {
 
     }
 
-    private void uploadDataToDB(DocumentReference restaurantMerchant) {
-        RestaurantUserDetails userDetails = new RestaurantUserDetails();
-        userDetails.setMobileNumber(Objects.requireNonNull(PAGE1.ContactNumber.getText()).toString());
-        userDetails.setFSSAICertificate(url);
-        userDetails.setPanCardNumber(Objects.requireNonNull(PAGE1.PanCardNumber.getText()).toString());
-        userDetails.setRestaurantName(Objects.requireNonNull(PAGE1.RestaurantName.getText()).toString());
-        userDetails.setFSSAINumber(Objects.requireNonNull(PAGE1.FSSAINumber.getText()).toString());
-        userDetails.setOwnerName(Objects.requireNonNull(PAGE1.OwnerName.getText()).toString());
-        restaurantMerchant.set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(RegisterRestaurant.this, "Saved to DB", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void uploadDataToDB() {
+        FirebaseFirestore restaurantDB = FirebaseFirestore.getInstance();
+        DocumentReference restaurantMerchant = restaurantDB.collection(getString(R.string.RESTAURANT_DB)).document(userDetails.getMobileNumber());
+        restaurantMerchant.set(userDetails).addOnSuccessListener(success -> NEW_RESTAURANT.RegistrationProcess.setCurrentItem(2))
+                .addOnFailureListener(failed -> System.out.println(getString(R.string.Failed_Text)));
     }
 
     private void uploadImage() {
@@ -128,15 +120,13 @@ public class RegisterRestaurant extends AppCompatActivity {
                     url = uri.toString();
 
                     System.out.println(url);
-                    FirebaseFirestore restaurantDB = FirebaseFirestore.getInstance();
-                    DocumentReference restaurantMerchant = restaurantDB.collection("restaurantDataBase").document(PAGE1.ContactNumber.getText().toString());
-                    uploadDataToDB(restaurantMerchant);
+                    uploadDataToDB();
                 });
     }
 
     private boolean CheckDocumentValues() {
-        View view = documentDetails.getView();
-        PAGE2 = FragmentRegistrationPage2Binding.bind(view);
+        View view2 = documentDetails.getView();
+        PAGE2 = FragmentRegistrationPage2Binding.bind(view2);
         return PAGE2.PreviewDocument.getDrawable() != null;
     }
 
@@ -146,59 +136,22 @@ public class RegisterRestaurant extends AppCompatActivity {
     }
 
     private boolean checkInputs() {
-        if (view != null) {
-            PAGE1 = FragmentRegisterPage1Binding.bind(view);
-            if (!PAGE1.OwnerName.getText().toString().matches("^[A-Za-z]\\w{5,28}$")) {
-                alertTheUser("Enter a valid UserName!", "UserName must starts with alphabets(Aa-Zz) and minimum 7 not more than 28 words, and Do not contain Space.");
-                return false;
-            }
-
-            if (PAGE1.RestaurantName.getText().toString().isEmpty()) {
-                alertTheUser("Enter a valid Restaurant Name!", "Restaurant Name cannot be empty.");
-                return false;
-            }
-
-            if (!PAGE1.GSTNo.getText().toString().isEmpty()) {
-                if (!PAGE1.GSTNo.getText().toString().matches("^[1-9][0-9]{14}$")) {
-                    alertTheUser("Enter a valid GST Number!", "GST Number you have entered is not valid");
-                    return false;
-                }
-            }
-            if (!PAGE1.FSSAINumber.getText().toString().matches("^[A-Za-z1-9][A-Za-z0-9]{14}$")) {
-                alertTheUser("Enter a valid FSSAINumber!", "FSSAINumber you have entered is not valid");
-                return false;
-            }
-
-            if (!PAGE1.PanCardNumber.getText().toString().matches("^[A-Za-z1-9][A-Za-z0-9]{9}$")) {
-                alertTheUser("Enter a valid PanCard Number!", "PanCard Number you have entered is not valid");
-                return false;
-            }
-
-            if (!PAGE1.ContactNumber.getText().toString().matches("^[6-9][0-9]{9}$")) {
-                alertTheUser("Enter a valid Contact Number!", "Contact Number you have entered is not valid");
-                return false;
-            }
-
-            return true;
-        } else
-            return false;
-    }
-
-
-    void alertTheUser(String Title, String Message) {
+        view = restaurantDetails.getView();
+        assert view != null;
+        PAGE1 = FragmentRegisterPage1Binding.bind(view);
+        userDetails = new RestaurantUserDetails();
+        userDetails.setMobileNumber(Objects.requireNonNull(PAGE1.ContactNumber.getText()).toString());
+        userDetails.setFSSAICertificate(url);
+        userDetails.setGSTNumber((PAGE1.GSTNo.getText() == null)?"":PAGE1.GSTNo.getText().toString());
+        userDetails.setPanCardNumber(Objects.requireNonNull(PAGE1.PanCardNumber.getText()).toString());
+        userDetails.setRestaurantName(Objects.requireNonNull(PAGE1.RestaurantName.getText()).toString());
+        userDetails.setFSSAINumber(Objects.requireNonNull(PAGE1.FSSAINumber.getText()).toString());
+        userDetails.setOwnerName(Objects.requireNonNull(PAGE1.OwnerName.getText()).toString());
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog);
-        TextView TITLE, MESSAGE;
-        Button Ok;
-        TITLE = dialog.findViewById(R.id.TITLE);
-        MESSAGE = dialog.findViewById(R.id.MESSAGE);
-        Ok = dialog.findViewById(R.id.Ok);
-
-        TITLE.setText(Title);
-        MESSAGE.setText(Message);
-        Ok.setOnClickListener(onClickOk -> dialog.cancel());
-
-        dialog.show();
-
+        AuthController Auth = new AuthController();
+        return Auth.checkValues(userDetails, dialog);
     }
+
+
+
 }

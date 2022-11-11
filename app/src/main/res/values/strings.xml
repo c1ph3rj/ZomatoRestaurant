@@ -13,4 +13,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="ImageError_Text">Upload Document Image to continue!</string>
     <string name="DocumentErrorMessage">Upload a valid FSSAI Document Image to continue</string>
+    <string name="RESTAURANT_DB">restaurantDataBase</string>
+    <string name="dataStoredSuccess_Text">UPLOADED TO DB</string>
+    <string name="Failed_Text">FAILED</string>
 </resources>
