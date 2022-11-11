@@ -11,4 +11,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="ImageError_Text">Upload Document Image to continue!</string>
+    <string name="DocumentErrorMessage">Upload a valid FSSAI Document Image to continue</string>
 </resources>
