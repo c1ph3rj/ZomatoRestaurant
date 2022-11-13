@@ -9,13 +9,22 @@ public class RestaurantUserDetails {
     private String ownerName;
     private String panCardNumber;
     private String restaurantName;
-    private String restaurantStatus;
+    private boolean restaurantStatus;
     private ArrayList<String> typeOfFoodServed;
     private String FSSAINumber;
     private String GSTNumber;
     private String address;
+    private ArrayList<String> topFoodImages;
     private GeoPoint location;
     private String FSSAICertificate;
+
+    public ArrayList<String> getTopFoodImages() {
+        return topFoodImages;
+    }
+
+    public void setTopFoodImages(ArrayList<String> topFoodImages) {
+        this.topFoodImages = topFoodImages;
+    }
 
     public String getMobileNumber() {
         return mobileNumber;
@@ -49,11 +58,11 @@ public class RestaurantUserDetails {
         this.restaurantName = restaurantName;
     }
 
-    public String getRestaurantStatus() {
+    public boolean getRestaurantStatus() {
         return restaurantStatus;
     }
 
-    public void setRestaurantStatus(String restaurantStatus) {
+    public void setRestaurantStatus(boolean restaurantStatus) {
         this.restaurantStatus = restaurantStatus;
     }
 
@@ -105,7 +114,7 @@ public class RestaurantUserDetails {
         this.FSSAICertificate = FSSAICertificate;
     }
 
-    public RestaurantUserDetails(String mobileNumber, String ownerName, String panCardNumber, String restaurantName, String restaurantStatus, ArrayList<String> typeOfFoodServed, String FSSAINumber, String GSTNumber, String address, GeoPoint location, String FSSAICertificate) {
+    public RestaurantUserDetails(String mobileNumber, String ownerName, String panCardNumber, String restaurantName, boolean restaurantStatus, ArrayList<String> typeOfFoodServed, String FSSAINumber, String GSTNumber, String address, GeoPoint location, String FSSAICertificate, ArrayList<String> topFoodImages) {
         this.mobileNumber = mobileNumber;
         this.ownerName = ownerName;
         this.panCardNumber = panCardNumber;
@@ -117,6 +126,7 @@ public class RestaurantUserDetails {
         this.address = address;
         this.location = location;
         this.FSSAICertificate = FSSAICertificate;
+        this.topFoodImages = topFoodImages;
     }
 
     public RestaurantUserDetails(){

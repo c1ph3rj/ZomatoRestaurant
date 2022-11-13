@@ -3,6 +3,8 @@ package com.c1ph3r.zomatorestaurant;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,11 +14,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.c1ph3r.zomatorestaurant.Model.RestaurantUserDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class OTPVerify extends Fragment {
 
@@ -25,6 +41,7 @@ public class OTPVerify extends Fragment {
     FirebaseAuth auth;
     PhoneAuthCredential phoneAuthCredential;
     String verificationID;
+    RestaurantUserDetails restaurantDB;
 
     public OTPVerify() {
         // Required empty public constructor
@@ -48,7 +65,7 @@ public class OTPVerify extends Fragment {
             EditText OTP = view.findViewById(R.id.OTPField);
             MaterialButton back = view.findViewById(R.id.backToLogin);
             TextView mobileNumberDisplay = view.findViewById(R.id.mobileNumberDisplay);
-            this.mobileNumber = "+91" + mobileNumber;
+            this.mobileNumber = getString(R.string.CountryCode) + mobileNumber;
             mobileNumberDisplay.setText(mobileNumber);
 
 
@@ -89,6 +106,21 @@ public class OTPVerify extends Fragment {
     }
 
     private void ifTheUserIsNew() {
-        startActivity(new Intent(requireActivity(), Dashboard.class));
+        FirebaseFirestore FireStore = FirebaseFirestore.getInstance();
+        DocumentReference RestaurantDB = FireStore.collection(getString(R.string.RESTAURANT_DB)).document(mobileNumber);
+        RestaurantDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot restaurantDetails) {
+                if(restaurantDetails.exists() && restaurantDetails.get("restaurantName") != "")
+                    startActivity(new Intent(requireActivity(), Dashboard.class));
+                else if(restaurantDetails.exists() && ((ArrayList<?>) Objects.requireNonNull(restaurantDetails.get("topFoodImages"))).size() !=0)
+                    startActivity(new Intent(requireActivity(), RestaurantDetails.class));
+                else {
+                    Intent intent = new Intent(requireActivity(), RegisterRestaurant.class);
+                    intent.putExtra("mobileNumber", mobileNumber);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

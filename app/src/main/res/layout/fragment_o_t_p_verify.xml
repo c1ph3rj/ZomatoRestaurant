@@ -63,6 +63,7 @@
             android:layout_marginTop="36dp"
             android:background="@drawable/edit_text_background"
             android:ems="9"
+            android:padding="@dimen/P_4dp"
             android:inputType="numberDecimal"
             android:letterSpacing="1"
             android:maxLength="6"

@@ -27,7 +27,7 @@
             android:paddingStart="32dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/metropolis_semi_bold"
-            android:text="Register your restaurant here:"
+            android:text="Register your restaurant here\nto continue:"
             android:textColor="@color/color2"
             android:paddingBottom="@dimen/P_8dp"
             android:textSize="@dimen/TS_18sp"

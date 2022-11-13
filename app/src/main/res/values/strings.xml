@@ -16,4 +16,6 @@
     <string name="RESTAURANT_DB">restaurantDataBase</string>
     <string name="dataStoredSuccess_Text">UPLOADED TO DB</string>
     <string name="Failed_Text">FAILED</string>
+    <string name="submit_Text">Submit</string>
+    <string name="CountryCode">+91</string>
 </resources>
