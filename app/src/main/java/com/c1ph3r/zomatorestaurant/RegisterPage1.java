@@ -11,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.c1ph3r.zomatorestaurant.Controller.dialogBox;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterPage1 extends Fragment {
 
-    String mobileNumber;
-    public RegisterPage1(String mobileNumber) {
+    String mobileNumber, location;
+    public RegisterPage1(String mobileNumber, String location) {
       this.mobileNumber = mobileNumber;
+      this.location = location;
     }
 
     public RegisterPage1() {
@@ -35,8 +37,8 @@ public class RegisterPage1 extends Fragment {
         if(view != null){
             TextInputEditText contactNumber = view.findViewById(R.id.ContactNumber);
 
-            if(mobileNumber != null) {
-               warnTheUser();
+            if(mobileNumber != null && location == null) {
+               dialogBox.alertTheUser("Register your Restaurant!", "You do not have registered your restaurant yet click ok to start your registration process.", requireContext());
                 contactNumber.setText(mobileNumber.replace(getString(R.string.CountryCode), ""));
                 contactNumber.setEnabled(false);
             }
@@ -44,19 +46,5 @@ public class RegisterPage1 extends Fragment {
         }
 
         return view;
-    }
-
-    private void warnTheUser() {
-        Dialog dialog = new Dialog(requireContext());
-        dialog.setContentView(R.layout.custom_dialog);
-        TextView TITLE, MESSAGE;
-        TITLE = dialog.findViewById(R.id.TITLE);
-        TITLE.setText("Register your Restaurant!");
-        MESSAGE = dialog.findViewById(R.id.MESSAGE);
-        MESSAGE.setText("You do not have registered your restaurant yet click ok to start your registration process.");
-        MaterialButton OK;
-        OK = dialog.findViewById(R.id.Ok);
-        OK.setOnClickListener(OnClickOk -> dialog.dismiss());
-        dialog.show();
     }
 }

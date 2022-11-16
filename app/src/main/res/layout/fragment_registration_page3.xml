@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/H_400dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RegistrationPage3">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/R_12dp"
+                android:elevation="@dimen/E_8dp"
+                android:layout_margin="@dimen/M_16dp">
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/GMap"
+                    map:mapId="dbc0db9c2b950d6b"
+                    android:layout_width="@dimen/W_300dp"
+                    android:layout_height="@dimen/H_220dp"
+                    android:layout_gravity="center"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

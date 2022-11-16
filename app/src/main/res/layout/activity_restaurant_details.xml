@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:id="@+id/AddImage"
     tools:context=".RestaurantDetails">
+
 
     <TextView
         android:id="@+id/RestaurantName"
@@ -20,30 +22,14 @@
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/metropolis_semi_bold"
-        android:text="One More Step Left"
-        android:textColor="@color/color2"
-        android:textSize="@dimen/TS_20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RestaurantName"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/W_340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:fontFamily="@font/dm_regular"
+        android:fontFamily="@font/metropolis_semi_bold"
         android:text="Add some food images that represent your restaurant:"
         android:textColor="@color/color2"
         android:textSize="@dimen/TS_18sp"
@@ -52,5 +38,78 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.11" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_margin="@dimen/M_3dp"
+        android:fontFamily="@font/metropolis_regular"
+        android:text="Minimum 1 Maximum 5 is needed*"
+        android:textColor="@color/color1"
+        android:textSize="@dimen/TS_10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.228"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/UploadTopFoodImages"
+        android:layout_width="@dimen/W_300dp"
+        android:layout_height="@dimen/H_55dp"
+        android:layout_marginTop="124dp"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:text="Choose Images"
+        android:textAllCaps="false"
+        android:textColor="@color/color4"
+        android:textSize="@dimen/TS_14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        app:layout_constraintBottom_toTopOf="@+id/UploadImagesToDB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:gravity="center_horizontal"
+        android:id="@+id/layoutLinear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UploadTopFoodImages" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listOfImagesViewer"
+            android:layout_width="@dimen/W_340dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/UploadImagesToDB"
+        android:layout_width="@dimen/W_300dp"
+        android:layout_height="@dimen/H_55dp"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:text="Upload Images"
+        android:textAllCaps="false"
+        android:textSize="@dimen/TS_14sp"
+        app:cornerRadius="@dimen/R_6dp"
+        app:icon="@drawable/upload_ic"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutLinear"
+        app:layout_constraintVertical_bias="0.946" />
 </androidx.constraintlayout.widget.ConstraintLayout>

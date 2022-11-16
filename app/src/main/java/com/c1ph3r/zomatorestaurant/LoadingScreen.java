@@ -35,11 +35,14 @@ public class LoadingScreen extends AppCompatActivity {
                     if(restaurantDetails.exists()){
                         RestaurantUserDetails restaurant = restaurantDetails.toObject(RestaurantUserDetails.class);
                         assert restaurant != null;
-                        System.out.println(restaurant.getTopFoodImages().size() == 0);
-                        if(Objects.equals(restaurant.getRestaurantName(), ""))
-                            startActivity(new Intent(LoadingScreen.this, RegisterRestaurant.class));
+                        if(Objects.equals(restaurant.getAddress(), " "))
+                            startActivity(new Intent(LoadingScreen.this, RegisterRestaurant.class)
+                                    .putExtra("Location", "0")
+                                    .putExtra("mobileNumber", mobileNumber));
                         else if(restaurant.getTopFoodImages().size() ==0) {
-                            startActivity(new Intent(LoadingScreen.this, RestaurantDetails.class));
+                            Intent intent = new Intent(LoadingScreen.this, RestaurantDetails.class);
+                            intent.putExtra("mobileNumber", mobileNumber);
+                            startActivity(intent);
                         }else
                             startActivity(new Intent(LoadingScreen.this, Dashboard.class));
                         finish();

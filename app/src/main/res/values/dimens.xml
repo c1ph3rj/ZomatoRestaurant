@@ -69,6 +69,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="H_60dp">60dp</dimen>
     <dimen name="P_56dp">56dp</dimen>
+    <dimen name="H_450dp">450dp</dimen>
 
 
 </resources>

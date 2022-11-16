@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.c1ph3r.zomatorestaurant.Adapter.RegistrationProcess;
@@ -28,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,8 +41,9 @@ public class RegisterRestaurant extends AppCompatActivity {
     RegisterPage1 restaurantDetails;
     RestaurantUserDetails userDetails;
     RegistrationPage2 documentDetails;
-    View view ;
-    String mobileNumber;
+    RegistrationPage3 addressDetails;
+    View view;
+    String mobileNumber, location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +55,17 @@ public class RegisterRestaurant extends AppCompatActivity {
 
         Intent intent = getIntent();
         mobileNumber = intent.getStringExtra("mobileNumber");
-        if(mobileNumber!= null)
-            restaurantDetails = new RegisterPage1(mobileNumber);
-        else
+        location = intent.getStringExtra("Location");
+        if (mobileNumber != null) {
+            addressDetails = new RegistrationPage3(mobileNumber);
+            restaurantDetails = new RegisterPage1(mobileNumber, location);
+        }else {
             restaurantDetails = new RegisterPage1();
+            addressDetails = new RegistrationPage3();
+        }
 
         // Initializing and Declaring the fragments.
         documentDetails = new RegistrationPage2();
-
-
-
 
 
         // Initializing and Declaring the Adapter.
@@ -69,6 +73,7 @@ public class RegisterRestaurant extends AppCompatActivity {
         // Adding the fragments to the Adapter.
         process.addFragment(restaurantDetails);
         process.addFragment(documentDetails);
+        process.addFragment(addressDetails);
 
         // Setting Adapter to the View Pager2.
         NEW_RESTAURANT.RegistrationProcess.setAdapter(process);
@@ -76,6 +81,11 @@ public class RegisterRestaurant extends AppCompatActivity {
 
 
         // Binding Fragments using variables.
+
+
+        if (location != null) {
+            NEW_RESTAURANT.RegistrationProcess.setCurrentItem(2);
+        }
 
 
         // On Click of Next Button verify the values entered by the user and change the fragments
@@ -92,9 +102,9 @@ public class RegisterRestaurant extends AppCompatActivity {
                     // If view pager in 2nd fragment verify if the user uploaded the document and if yes move to next fragments
                     if (CheckDocumentValues())
                         submitValues();
-                    //else
-                        // Else toast a message to the user.
-                        //alertTheUser(getString(R.string.ImageError_Text), getString(R.string.DocumentErrorMessage));
+                    break;
+                case 3:
+                    break;
             }
         });
 
@@ -111,12 +121,15 @@ public class RegisterRestaurant extends AppCompatActivity {
         FirebaseFirestore restaurantDB = FirebaseFirestore.getInstance();
         userDetails.setMobileNumber((getString(R.string.CountryCode) + PAGE1.ContactNumber.getText()));
         DocumentReference restaurantMerchant = restaurantDB.collection(getString(R.string.RESTAURANT_DB)).document(userDetails.getMobileNumber());
-        restaurantMerchant.set(userDetails).addOnSuccessListener(success -> PAGE2.loadingProgress.setVisibility(View.INVISIBLE))
+        restaurantMerchant.set(userDetails).addOnSuccessListener(success -> {
+                    PAGE2.loadingProgress.setVisibility(View.INVISIBLE);
+                    NEW_RESTAURANT.RegistrationProcess.setCurrentItem(2);
+                })
                 .addOnFailureListener(failed -> System.out.println(getString(R.string.Failed_Text)));
     }
 
     private void uploadImage() {
-        StorageReference documentsDB = FirebaseStorage.getInstance().getReference("restaurantDocuments/")
+        StorageReference documentsDB = FirebaseStorage.getInstance().getReference("restaurantDocuments/" + mobileNumber + "/ Document")
                 .child(UUID.randomUUID().toString());
         UploadTask uploadImage = documentsDB.putFile(documentDetails.imageUri);
         uploadImage.addOnSuccessListener(
@@ -155,7 +168,6 @@ public class RegisterRestaurant extends AppCompatActivity {
 
     private void nextPage() {
         NEW_RESTAURANT.RegistrationProcess.setCurrentItem(1);
-        NEW_RESTAURANT.NextButton.setText(R.string.submit_Text);
     }
 
     private boolean checkInputs() {
@@ -164,12 +176,12 @@ public class RegisterRestaurant extends AppCompatActivity {
         PAGE1 = FragmentRegisterPage1Binding.bind(view);
         userDetails = new RestaurantUserDetails();
         userDetails.setTypeOfFoodServed(new ArrayList<String>());
-        userDetails.setLocation(new GeoPoint(0,0));
+        userDetails.setLocation(new GeoPoint(0, 0));
         userDetails.setAddress(" ");
         userDetails.setRestaurantStatus(false);
         userDetails.setTopFoodImages(new ArrayList<String>());
         userDetails.setMobileNumber((Objects.requireNonNull(PAGE1.ContactNumber.getText())).toString());
-        userDetails.setGSTNumber((PAGE1.GSTNo.getText() == null)?"":PAGE1.GSTNo.getText().toString());
+        userDetails.setGSTNumber((PAGE1.GSTNo.getText() == null) ? "" : PAGE1.GSTNo.getText().toString());
         userDetails.setPanCardNumber(Objects.requireNonNull(PAGE1.PanCardNumber.getText()).toString());
         userDetails.setRestaurantName(Objects.requireNonNull(PAGE1.RestaurantName.getText()).toString());
         userDetails.setFSSAINumber(Objects.requireNonNull(PAGE1.FSSAINumber.getText()).toString());
@@ -183,29 +195,42 @@ public class RegisterRestaurant extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(NEW_RESTAURANT.RegistrationProcess.getCurrentItem() == 0){
-            if(FirebaseAuth.getInstance().getCurrentUser() != null){
+        if (NEW_RESTAURANT.RegistrationProcess.getCurrentItem() == 0) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 new MaterialAlertDialogBuilder(this, R.style.customDialogBoxBackground)
                         .setTitle("Zomato Restaurant")
                         .setMessage("Do you want to Logout?")
-                        .setPositiveButton("Yes", (dialogInterface, i) ->{
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
                             FirebaseAuth.getInstance().getCurrentUser().delete();
                             FirebaseAuth.getInstance().signOut();
                             startActivity(new Intent(RegisterRestaurant.this, MainActivity.class));
                         })
-                        .setNegativeButton("No", (dialogInterface, i) -> {})
+                        .setNegativeButton("No", (dialogInterface, i) -> {
+                        })
                         .show();
             }
-        }
-        else{
+        } else {
             new MaterialAlertDialogBuilder(this, R.style.customDialogBoxBackground)
                     .setTitle("Zomato Restaurant")
                     .setMessage("Do you want to exit?")
-                    .setPositiveButton("Yes", (dialogInterface, i) ->{
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
                         startActivity(new Intent(RegisterRestaurant.this, MainActivity.class));
                     })
-                    .setNegativeButton("No", (dialogInterface, i) -> {})
+                    .setNegativeButton("No", (dialogInterface, i) -> {
+                    })
                     .show();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        System.out.println(Arrays.toString(grantResults));
     }
 }
